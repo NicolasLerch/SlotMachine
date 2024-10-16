@@ -19,13 +19,13 @@ const symbols = [
   setEsponja,
 ];
 
-const symbolNames = [
-  "Fragancia",
-  "Protector Solar",
-  "Esmalte",
-  "Corrector",
-  "Set de Esponjas",
-];
+// const symbolNames = [
+//   "Fragancia",
+//   "Protector Solar",
+//   "Esmalte",
+//   "Corrector",
+//   "Set de Esponjas",
+// ];
 
 const SlotMachine = () => {
   const [reel1, setReel1] = useState(esmalte);
@@ -38,22 +38,22 @@ const SlotMachine = () => {
   const [reel1Class, setReel1Class] = useState("");
   const [reel2Class, setReel2Class] = useState("");
   const [reel3Class, setReel3Class] = useState("");
-  const [isChecked, setIsChecked] = useState(
-    new Array(symbols.length).fill(false));
-  const [visibleSymbols, setVisibleSymbols] = useState(symbols);
+  // const [isChecked, setIsChecked] = useState(
+  //   new Array(symbols.length).fill(false));
+  // const [visibleSymbols, setVisibleSymbols] = useState(symbols);
 
-  const handleOnChange = (index) => {
-    const updatedCheckedState = isChecked.map((item, idx) =>
-      idx === index ? !item : item
-    );
-    setIsChecked(updatedCheckedState);
-    const updatedVisibleSymbols = updatedCheckedState.reduce((acc, isChecked, idx) => {
-      if (isChecked) acc.push(symbols[idx]);
-      return acc;
-    }, []);
+  // const handleOnChange = (index) => {
+  //   const updatedCheckedState = isChecked.map((item, idx) =>
+  //     idx === index ? !item : item
+  //   );
+  //   setIsChecked(updatedCheckedState);
+  //   const updatedVisibleSymbols = updatedCheckedState.reduce((acc, isChecked, idx) => {
+  //     if (isChecked) acc.push(symbols[idx]);
+  //     return acc;
+  //   }, []);
   
-    setVisibleSymbols(updatedVisibleSymbols);
-  };
+  //   setVisibleSymbols(updatedVisibleSymbols);
+  // };
 
   const spinAudio = new Audio(spinSound);
   const rollingAudio = new Audio(spinningSound);
@@ -65,7 +65,7 @@ const SlotMachine = () => {
     setSpinning(true);
     setWinner(false);
 
-    const availablePrizes = symbols.filter((_, index) => isChecked[index]);
+    // const availablePrizes = symbols.filter((_, index) => isChecked[index]);
 
     spinAudio.play();
     rollingAudio.play();
@@ -77,7 +77,7 @@ const SlotMachine = () => {
 
     // Iniciar el giro de los reels
     let spin1 = setInterval(() => {
-      setReel1(availablePrizes[Math.floor(Math.random() * availablePrizes.length)]);
+      setReel1(symbols[Math.floor(Math.random() * symbols.length)]);
     }, 100);
 
     setTimeout(() => {
@@ -85,7 +85,7 @@ const SlotMachine = () => {
       setReel1Class("");
 
       let spin2 = setInterval(() => {
-        setReel2(availablePrizes[Math.floor(Math.random() * availablePrizes.length)]);
+        setReel2(symbols[Math.floor(Math.random() * symbols.length)]);
       }, 100);
 
       setTimeout(() => {
@@ -93,7 +93,7 @@ const SlotMachine = () => {
         setReel2Class("");
 
         let spin3 = setInterval(() => {
-          setReel3(availablePrizes[Math.floor(Math.random() * availablePrizes.length)]);
+          setReel3(symbols[Math.floor(Math.random() * symbols.length)]);
         }, 100);
 
         setTimeout(() => {
@@ -161,24 +161,7 @@ const SlotMachine = () => {
         </div>
 
         <div className="slot-machine-bottom">
-          <div className="slot-machine-bottom-left">
-            <h3>Premios Disponibles</h3>
-            <form className="available-prizes-form">
-              {symbols.map((symbol, index) => (
-                <div className="input-checkbox" key={index}>
-                  <input
-                    type="checkbox"
-                    id={`${symbol}-checkbox`}
-                    name="available"
-                    className="mycheck"
-                    value={symbol}
-                    checked={isChecked[index]} // Usa el estado específico
-                    onChange={() => handleOnChange(index)} // Pasa el índice
-                  />
-                  {symbolNames[index]} {/* Cambia esto por el nombre que desees mostrar */}
-                </div>
-              ))}
-            </form>
+          <div className="slot-machine-bottom-left">          
           </div>
 
           <div className="slot-machine-bottom-center">
