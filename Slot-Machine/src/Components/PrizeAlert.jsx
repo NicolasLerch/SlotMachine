@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./PrizeAlert.css";
+import "./prizeAlert.css";
 
 export default function PrizeAlert({ prize, img, setVisible }) {
   const [prizeName, setPrizeName] = useState("");

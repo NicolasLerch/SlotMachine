@@ -19,6 +19,14 @@ const symbols = [
   setEsponja,
 ];
 
+const symbolNames = [
+  "Fragancia",
+  "Protector Solar",
+  "Esmalte",
+  "Corrector",
+  "Set de Esponjas",
+];
+
 const SlotMachine = () => {
   const [reel1, setReel1] = useState(esmalte);
   const [reel2, setReel2] = useState(fragancia);
@@ -30,6 +38,22 @@ const SlotMachine = () => {
   const [reel1Class, setReel1Class] = useState("");
   const [reel2Class, setReel2Class] = useState("");
   const [reel3Class, setReel3Class] = useState("");
+  const [isChecked, setIsChecked] = useState(
+    new Array(symbols.length).fill(false));
+  const [visibleSymbols, setVisibleSymbols] = useState(symbols);
+
+  const handleOnChange = (index) => {
+    const updatedCheckedState = isChecked.map((item, idx) =>
+      idx === index ? !item : item
+    );
+    setIsChecked(updatedCheckedState);
+    const updatedVisibleSymbols = updatedCheckedState.reduce((acc, isChecked, idx) => {
+      if (isChecked) acc.push(symbols[idx]);
+      return acc;
+    }, []);
+  
+    setVisibleSymbols(updatedVisibleSymbols);
+  };
 
   const spinAudio = new Audio(spinSound);
   const rollingAudio = new Audio(spinningSound);
@@ -40,46 +64,48 @@ const SlotMachine = () => {
   const spinReels = () => {
     setSpinning(true);
     setWinner(false);
-  
+
+    const availablePrizes = symbols.filter((_, index) => isChecked[index]);
+
     spinAudio.play();
     rollingAudio.play();
-  
+
     // Asignar la clase "spin" a los reels inicialmente
     setReel1Class("spin");
     setReel2Class("spin");
     setReel3Class("spin");
-  
+
     // Iniciar el giro de los reels
     let spin1 = setInterval(() => {
-      setReel1(symbols[Math.floor(Math.random() * symbols.length)]);
+      setReel1(availablePrizes[Math.floor(Math.random() * availablePrizes.length)]);
     }, 100);
-  
+
     setTimeout(() => {
-      clearInterval(spin1); 
-      setReel1Class(""); 
-  
+      clearInterval(spin1);
+      setReel1Class("");
+
       let spin2 = setInterval(() => {
-        setReel2(symbols[Math.floor(Math.random() * symbols.length)]);
+        setReel2(availablePrizes[Math.floor(Math.random() * availablePrizes.length)]);
       }, 100);
-  
+
       setTimeout(() => {
-        clearInterval(spin2); 
-        setReel2Class(""); 
-  
+        clearInterval(spin2);
+        setReel2Class("");
+
         let spin3 = setInterval(() => {
-          setReel3(symbols[Math.floor(Math.random() * symbols.length)]);
+          setReel3(availablePrizes[Math.floor(Math.random() * availablePrizes.length)]);
         }, 100);
-  
+
         setTimeout(() => {
-          clearInterval(spin3); 
-          setSpinning(false); 
-          setReel3Class("");           
+          clearInterval(spin3);
+          setSpinning(false);
+          setReel3Class("");
         }, 1000); // Detener el tercer reel después de 1 segundo
       }, 1000); // Detener el segundo reel después de 1 segundo
     }, 2000); // Detener el primer reel después de 2 segundos
   };
-  
-  
+
+
 
   useEffect(() => {
     if (!spinning && reel1 === reel2 && reel2 === reel3) {
@@ -121,30 +147,38 @@ const SlotMachine = () => {
         }
 
         <div className="reels-container">
-                  
-            <div className="reel">
-              <img src={reel1} alt="Reel 2" className={`reel-image ${spinning ? reel1Class : ""}`} />
-            </div>
-            <div className="reel">
-              <img src={reel2} alt="Reel 2" className={`reel-image ${spinning ? reel2Class : ""}`} />
-            </div>
-            <div className="reel">
-              <img src={reel3} alt="Reel 2" className={`reel-image ${spinning ? reel3Class : ""}`} />
-            </div>
- 
-        </div>
 
+          <div className="reel">
+            <img src={reel1} alt="Reel 2" className={`reel-image ${spinning ? reel1Class : ""}`} />
+          </div>
+          <div className="reel">
+            <img src={reel2} alt="Reel 2" className={`reel-image ${spinning ? reel2Class : ""}`} />
+          </div>
+          <div className="reel">
+            <img src={reel3} alt="Reel 2" className={`reel-image ${spinning ? reel3Class : ""}`} />
+          </div>
+
+        </div>
 
         <div className="slot-machine-bottom">
           <div className="slot-machine-bottom-left">
-            {/* <h3>Disponible</h3>
-            <ul className="slot-machine-bottom-left-list">
-              <li>Esmalte</li>
-              <li>Fragancia</li>
-              <li>Protector solar</li>
-              <li>Corrector</li>
-              <li>Set de esponjas</li>
-            </ul> */}
+            <h3>Premios Disponibles</h3>
+            <form className="available-prizes-form">
+              {symbols.map((symbol, index) => (
+                <div className="input-checkbox" key={index}>
+                  <input
+                    type="checkbox"
+                    id={`${symbol}-checkbox`}
+                    name="available"
+                    className="mycheck"
+                    value={symbol}
+                    checked={isChecked[index]} // Usa el estado específico
+                    onChange={() => handleOnChange(index)} // Pasa el índice
+                  />
+                  {symbolNames[index]} {/* Cambia esto por el nombre que desees mostrar */}
+                </div>
+              ))}
+            </form>
           </div>
 
           <div className="slot-machine-bottom-center">
@@ -155,10 +189,6 @@ const SlotMachine = () => {
             >
               TIRAR
             </button>
-          </div>
-
-          <div className="slot-machine-bottom-left">
-            {/* <h3>APOSTAR</h3> */}
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 body{
     /* background-color: #ff9e8b; */
     background-color: #ffe4e1;
+    overflow: hidden;
     /* width: 100%; */
     /* margin: auto; */
 }
@@ -57,9 +58,36 @@ body{
     margin: 10px;
 }
 
+.slot-machine-bottom-center{
+  /* align-self:baseline; */
+  /* background-color: red; */
+  /* align-self: self-start; */
+  width: 58%;
+}
+
+.slot-machine-bottom-left{
+  width: 30%;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px black;
+  padding: 10px;
+  /* padding-right: -50px; */
+  h3{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+  }
+  input{
+    margin: 5px;
+  }
+}
+
 .spin-button{
     font-size: 1.5em;
     color: white;
+    align-self:center;
+    width: 70%;
     /* background-color: rgb(248, 114, 101); */
     background-color: rgba(199, 6, 6, 0.664);
     width: 100px;
@@ -81,12 +109,28 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* border: 2px solid rgb(175, 98, 162); */
-    border-radius: 10px;
-    gap: 30px;
     margin-top: 60px;
-    /* background-color: rgb(248, 114, 101); */
     overflow: visible;
+}
+
+@media (max-width: 699px){
+  .slot-machine-bottom{
+    flex-direction: column-reverse;
+    width: 100%;
+    align-items: center;
+  }
+  .slot-machine-bottom-center{
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+  .available-prizes-form{
+    width: 100% !important;
+  }
+  .slot-machine-bottom-left{
+    width: 100%;
+    margin-top: 30px;
+  }
 }
 
 .button-container{
@@ -104,6 +148,7 @@ body{
 
 .reel-image{
     height: 100px;
+    filter: drop-shadow(5px 3px 4px black);
     @media screen and (max-width: 700px) {
         height: 70px;
     }
@@ -132,13 +177,6 @@ body{
   .winner-blink{
     animation: blink-border 1s infinite alternate;
     box-shadow: 0 0 20px rgba(248, 132, 121, 0.8);
-  }
-
-  ul.slot-machine-bottom-left-list{
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    text-align: left;
   }
   
   @keyframes blink-border {
@@ -196,3 +234,92 @@ body{
         box-shadow: 0px 0px 20px black;
     }
 }
+body {
+  position: relative;
+  overflow: hidden;
+  background-color: #ffe4e1;
+  background-image: conic-gradient(
+    rgb(248, 132, 121) 0%,
+    rgb(248, 132, 121) 5%,
+    rgb(252, 180, 174) 5%,
+    rgb(252, 180, 174) 10%,
+    rgb(248, 132, 121) 10%,
+    rgb(248, 132, 121) 15%,
+    rgb(252, 180, 174) 15%,
+    rgb(252, 180, 174) 20%,
+    rgb(248, 132, 121) 20%,
+    rgb(248, 132, 121) 25%,
+    rgb(252, 180, 174) 25%,
+    rgb(252, 180, 174) 30%,
+    rgb(248, 132, 121) 30%,
+    rgb(248, 132, 121) 35%,
+    rgb(252, 180, 174) 35%,
+    rgb(252, 180, 174) 40%,
+    rgb(248, 132, 121) 40%,
+    rgb(248, 132, 121) 45%,
+    rgb(252, 180, 174) 45%,
+    rgb(252, 180, 174) 50%,
+    rgb(248, 132, 121) 50%,
+    rgb(248, 132, 121) 55%,
+    rgb(252, 180, 174) 55%,
+    rgb(252, 180, 174) 60%,
+    rgb(248, 132, 121) 60%,
+    rgb(248, 132, 121) 65%,
+    rgb(252, 180, 174) 65%,
+    rgb(252, 180, 174) 70%,
+    rgb(248, 132, 121) 70%,
+    rgb(248, 132, 121) 75%,
+    rgb(252, 180, 174) 75%,
+    rgb(252, 180, 174) 80%,
+    rgb(248, 132, 121) 80%,
+    rgb(248, 132, 121) 85%,
+    rgb(252, 180, 174) 85%,
+    rgb(252, 180, 174) 90%,
+    rgb(248, 132, 121) 90%,
+    rgb(248, 132, 121) 95%,
+    rgb(252, 180, 174) 95%,
+    rgb(252, 180, 174) 100%
+  );
+}
+
+.available-prizes-form{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-content: center;
+  text-align: left;
+  font-family: Arial, Helvetica, sans-serif;
+  &input{
+    flex-direction: row;
+  }
+  @media (max-width: 699px){
+    width: 100%;
+  }
+}
+
+.input-checkbox{
+  display: flex;
+  align-items: center;
+}
+
+.mycheck {
+  cursor: pointer;
+  background-color: rgb(252, 180, 174);
+  width: 15px;
+  height: 15px;
+  appearance: none;
+  border: none;
+  border-radius: 3px;
+  margin-top: 0px !important;
+  
+}
+
+.mycheck:checked {
+  background-color: rgb(236 72 153);
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+}
+
+.mycheck:disabled {
+  background-color: rgb(252, 180, 174);
+  background-image: none;
+} 
