@@ -392,3 +392,56 @@ body {
     width: 120px;
   }
 }
+
+@media (max-width: 400px) {
+  .slot-machine-container {
+    width: 95% !important;
+    padding: 20px;
+  }
+  .slot-machine-bottom{
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .slot-machine-bottom-center {
+    width: 50%;
+    align-content: center;
+    order: 3;
+    margin-bottom: 10px;
+  }
+  .slot-machine-bottom-left,
+  .slot-machine-bottom-right {
+    display: inline-block;
+    text-align: center;
+    width: 30%;
+  }
+  .slot-machine-bottom-left{
+    align-self: center;
+    order: 2;
+  }
+  .slot-machine-bottom-right{
+    align-self: flex-start;
+    margin-top: 20px;
+    width: 50%;
+    order: 3;
+  }
+  .toggle-theme-button{
+    align-self: center;
+  }
+  .toggle-theme-button{
+    width: 110px;
+  }
+
+  
+  .winner-banner {
+    text-align: center;
+    color: white;
+    padding: 10px;
+    margin: 20px auto;
+    width: 100%;
+    img {
+      /* width: 100%; */
+    }
+  }
+}
