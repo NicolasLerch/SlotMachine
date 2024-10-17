@@ -2,19 +2,21 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
 .default-theme {
   --bg-color: rgb(248, 132, 121);
   --primary-color: #2a2a2a;
   --accent-color: #ff4500;
-  --text-color: #000000;
+  --text-color: #ffffff;
   --slot-machine-color: rgb(248, 132, 121);
   --spin-button-bg-color: rgba(199, 6, 6, 0.664);
   --spin-button-border-color: rgb(252, 35, 35);
   --reels-bg-color: #e0e0e0;
   --change-theme-button-bg-color: rgb(247, 117, 105);
   --border-lights-color: yellow;
+  --win-counter-color: black;
   height: 100vh !important;
   margin: 0;
   padding: 0;
@@ -66,57 +68,58 @@
 
 /* Tema Casino */
 .casino-theme {
-  --bg-color: rgb(88, 9, 190);
+  --bg-color: rgb(124, 31, 247);
   --primary-color: #f7b731;
   --accent-color: #e84118;
-  --text-color: #ffffff;
-  --slot-machine-color: rgba(255, 217, 0, 0.952);
+  --text-color: #000000;
+  --slot-machine-color: rgba(231, 201, 30, 0.952);
   --spin-button-bg-color: red;
   --spin-button-border-color: gold;
-  --reels-bg-color: rgb(88, 9, 190);
+  --reels-bg-color: rgb(124, 31, 247);
   --border-lights-color: red;
+  --win-counter-color: white;
   height: 100vh !important;
   width: 100%;
   align-content: center;
   background-image: conic-gradient(
-    rgb(88, 9, 190) 0%,
-    rgb(88, 9, 190) 5%,
-    rgb(63, 9, 190) 5%,
+    rgb(124, 31, 247) 0%,
+    rgb(124, 31, 247) 5%,
+    rgb(50, 7, 150) 5%,
     rgb(63, 9, 190) 10%,
-    rgb(88, 9, 190) 10%,
-    rgb(88, 9, 190) 15%,
+    rgb(124, 31, 247) 10%,
+    rgb(124, 31, 247) 15%,
     rgb(63, 9, 190) 15%,
     rgb(63, 9, 190) 20%,
-    rgb(88, 9, 190) 20%,
-    rgb(88, 9, 190) 25%,
+    rgb(124, 31, 247) 20%,
+    rgb(124, 31, 247) 25%,
     rgb(63, 9, 190) 25%,
     rgb(63, 9, 190) 30%,
-    rgb(88, 9, 190) 30%,
-    rgb(88, 9, 190) 35%,
+    rgb(124, 31, 247) 30%,
+    rgb(124, 31, 247) 35%,
     rgb(63, 9, 190) 35%,
     rgb(63, 9, 190) 40%,
-    rgb(88, 9, 190) 40%,
-    rgb(88, 9, 190) 45%,
+    rgb(124, 31, 247) 40%,
+    rgb(124, 31, 247) 45%,
     rgb(63, 9, 190) 45%,
     rgb(63, 9, 190) 50%,
-    rgb(88, 9, 190) 50%,
-    rgb(88, 9, 190) 55%,
+    rgb(124, 31, 247) 50%,
+    rgb(124, 31, 247) 55%,
     rgb(63, 9, 190) 55%,
     rgb(63, 9, 190) 60%,
-    rgb(88, 9, 190) 60%,
-    rgb(88, 9, 190) 65%,
+    rgb(124, 31, 247) 60%,
+    rgb(124, 31, 247) 65%,
     rgb(63, 9, 190) 65%,
     rgb(63, 9, 190) 70%,
-    rgb(88, 9, 190) 70%,
-    rgb(88, 9, 190) 75%,
+    rgb(124, 31, 247) 70%,
+    rgb(124, 31, 247) 75%,
     rgb(63, 9, 190) 75%,
     rgb(63, 9, 190) 80%,
-    rgb(88, 9, 190) 80%,
-    rgb(88, 9, 190) 85%,
+    rgb(124, 31, 247) 80%,
+    rgb(124, 31, 247) 85%,
     rgb(63, 9, 190) 85%,
     rgb(63, 9, 190) 90%,
-    rgb(88, 9, 190) 90%,
-    rgb(88, 9, 190) 95%,
+    rgb(124, 31, 247) 90%,
+    rgb(124, 31, 247) 95%,
     rgb(63, 9, 190) 95%,
     rgb(63, 9, 190) 100%
   );
@@ -144,11 +147,7 @@ body {
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
 }
 
-@media (max-width: 700px) {
-  .slot-machine-container {
-    width: 300px;
-  }
-}
+
 
 .reels-container {
   display: flex;
@@ -178,11 +177,12 @@ body {
 }
 
 .slot-machine-bottom-center {
-  width: 58%;
+  width: 33%;
+  text-align: center;
 }
 
 .slot-machine-bottom-left {
-  width: 30%;
+  width: 33%;
   border: none;
   border-radius: 10px;
   /* box-shadow: 2px 2px 5px black; */
@@ -193,8 +193,18 @@ body {
     margin-bottom: 10px;
     padding-left: 10px;
   }
-  input {
-    margin: 5px;
+}
+
+.slot-machine-bottom-right {
+  width: 33%;
+  .prize-counter{
+    border: 5px solid lightseagreen;
+    background-color: var(--reels-bg-color);
+    border-radius: 40px;
+    padding: 10px;
+    color: var(--win-counter-color);
+    text-align: center;
+    line-height: 1.5;
   }
 }
 
@@ -225,26 +235,6 @@ body {
   align-items: center;
   margin-top: 60px;
   overflow: visible;
-}
-
-@media (max-width: 699px) {
-  .slot-machine-bottom {
-    flex-direction: column-reverse;
-    width: 100%;
-    align-items: center;
-  }
-  .slot-machine-bottom-center {
-    width: 100%;
-    align-items: center;
-    text-align: center;
-  }
-  .available-prizes-form {
-    width: 100% !important;
-  }
-  .slot-machine-bottom-left {
-    width: 100%;
-    margin-top: 30px;
-  }
 }
 
 .reel-image {
@@ -338,8 +328,11 @@ body {
 
 .toggle-theme-button {
   display: flex;
+  color:var(--text-color);
   justify-content: center;
-  height: 40px;
+  height: 50px;
+  width: 150px;
+  font-size: 1.2rem;
   padding: 10px;
   border-radius: 10px;
   align-items: center;
@@ -348,7 +341,51 @@ body {
   border: none;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  &:hover {
+}
+
+@media (min-width: 900px) {
+  .toggle-theme-button:hover {
     transform: scale(1.1);
+  }
+}
+
+.toggle-theme-button:last-child{
+  margin-top: 10px;
+}
+
+
+@media (max-width: 600px) {
+  .slot-machine-container {
+    width: 90%;
+  }
+  .slot-machine-bottom{
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .slot-machine-bottom-center {
+    width: 50%;
+    align-content: center;
+    order: 3;
+    margin-bottom: 10px;
+  }
+  .slot-machine-bottom-left,
+  .slot-machine-bottom-right {
+    display: inline-block;
+    text-align: center;
+  }
+  .slot-machine-bottom-left{
+    align-self: center;
+    order: 2;
+  }
+  .slot-machine-bottom-right{
+    align-self: flex-start;
+    width: 100% !important;
+    margin-top: 20px;
+    order: 3;
+  }
+  .toggle-theme-button{
+    align-self: center;
   }
 }

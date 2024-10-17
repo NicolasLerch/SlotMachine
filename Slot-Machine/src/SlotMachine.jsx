@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect , useRef} from "react";
 import "./SlotMachine.css";
 import spinSound from "./assets/sounds/spin-sound.mp3";
 import spinningSound from "./assets/sounds/rolling-sound.mp3";
@@ -10,7 +10,8 @@ import colorCorrecting from "./assets/images/color-correcting.png";
 import setEsponja from "./assets/images/set-esponja.png";
 import logo from "./assets/images/Logo_GTL_white.png";
 import PrizeAlert from "./Components/PrizeAlert";
-
+import bgAudioFile from "./assets/sounds/background-music.mp3";
+import bgAudioFile2 from "./assets/sounds/bg-music2.mp3";
 
 const symbols = [
   fragancia,
@@ -20,8 +21,7 @@ const symbols = [
   setEsponja,
 ];
 
-
-const SlotMachine = ({toggleTheme, theme}) => {
+const SlotMachine = ({ toggleTheme, theme }) => {
   const [reel1, setReel1] = useState(esmalte);
   const [reel2, setReel2] = useState(fragancia);
   const [reel3, setReel3] = useState(protectorSolar);
@@ -32,18 +32,39 @@ const SlotMachine = ({toggleTheme, theme}) => {
   const [reel1Class, setReel1Class] = useState("");
   const [reel2Class, setReel2Class] = useState("");
   const [reel3Class, setReel3Class] = useState("");
+  const [prizeCounter, setPrizeCounter] = useState(7);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const bgAudio = useRef(new Audio(bgAudioFile));
 
   const spinAudio = new Audio(spinSound);
   const rollingAudio = new Audio(spinningSound);
   const winnerAudio = new Audio(winSound);
+  const bgAudio2 = new Audio(bgAudioFile2);
 
+  useEffect(() => {
+    const audio = bgAudio.current;
+    audio.loop = true;
 
+    return () => {
+      audio.pause();
+      audio.currentTime = 0;
+    };
+  }, []);
+
+  const handleSound = () => {
+    const audio = bgAudio.current; 
+    if (isPlaying) {
+      audio.pause();
+      audio.currentTime = 0;
+    } else {
+      audio.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
 
   const spinReels = () => {
     setSpinning(true);
     setWinner(false);
-
-    // const availablePrizes = symbols.filter((_, index) => isChecked[index]);
 
     spinAudio.play();
     rollingAudio.play();
@@ -83,13 +104,23 @@ const SlotMachine = ({toggleTheme, theme}) => {
     }, 2000); // Detener el primer reel después de 2 segundos
   };
 
-
+  // Al cargar la página, recuperar el contador de premios de localStorage
+  useEffect(() => {
+    const storedPrizeCounter = localStorage.getItem("prizeCounter");
+    if (storedPrizeCounter) {
+      setPrizeCounter(parseInt(storedPrizeCounter, 10));
+    }
+  }, []);
 
   useEffect(() => {
     if (!spinning && reel1 === reel2 && reel2 === reel3) {
       setWinner(true);
       setVisible(true);
       setPrize(reel1);
+      const newPrizeCounter = prizeCounter + 1;
+      setPrizeCounter(newPrizeCounter);
+
+      localStorage.setItem("prizeCounter", newPrizeCounter);
 
       switch (reel1) {
         case esmalte:
@@ -125,22 +156,37 @@ const SlotMachine = ({toggleTheme, theme}) => {
         }
 
         <div className="reels-container">
-
           <div className="reel">
-            <img src={reel1} alt="Reel 2" className={`reel-image ${spinning ? reel1Class : ""}`} />
+            <img
+              src={reel1}
+              alt="Reel 2"
+              className={`reel-image ${spinning ? reel1Class : ""}`}
+            />
           </div>
           <div className="reel">
-            <img src={reel2} alt="Reel 2" className={`reel-image ${spinning ? reel2Class : ""}`} />
+            <img
+              src={reel2}
+              alt="Reel 2"
+              className={`reel-image ${spinning ? reel2Class : ""}`}
+            />
           </div>
           <div className="reel">
-            <img src={reel3} alt="Reel 2" className={`reel-image ${spinning ? reel3Class : ""}`} />
+            <img
+              src={reel3}
+              alt="Reel 2"
+              className={`reel-image ${spinning ? reel3Class : ""}`}
+            />
           </div>
-
         </div>
 
         <div className="slot-machine-bottom">
           <div className="slot-machine-bottom-left">
-            <button className="toggle-theme-button" onClick={toggleTheme}>Cambiar tema</button>
+            <button className="toggle-theme-button" onClick={toggleTheme}>
+              Cambiar tema
+            </button>
+            <button className="toggle-theme-button" onClick={handleSound}>
+            {isPlaying ? (<i className="fa-solid fa-volume-off"></i>) : (<i className="fa-solid fa-volume-high"></i>) }
+            </button>
           </div>
 
           <div className="slot-machine-bottom-center">
@@ -151,6 +197,12 @@ const SlotMachine = ({toggleTheme, theme}) => {
             >
               TIRAR
             </button>
+          </div>
+
+          <div className="slot-machine-bottom-right">
+            <div>
+              <p className="prize-counter">Premios ganados: {prizeCounter}</p>
+            </div>
           </div>
         </div>
       </div>
