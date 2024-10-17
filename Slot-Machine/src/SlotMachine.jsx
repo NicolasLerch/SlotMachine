@@ -11,6 +11,7 @@ import setEsponja from "./assets/images/set-esponja.png";
 import logo from "./assets/images/Logo_GTL_white.png";
 import PrizeAlert from "./Components/PrizeAlert";
 
+
 const symbols = [
   fragancia,
   protectorSolar,
@@ -19,15 +20,8 @@ const symbols = [
   setEsponja,
 ];
 
-// const symbolNames = [
-//   "Fragancia",
-//   "Protector Solar",
-//   "Esmalte",
-//   "Corrector",
-//   "Set de Esponjas",
-// ];
 
-const SlotMachine = () => {
+const SlotMachine = ({toggleTheme, theme}) => {
   const [reel1, setReel1] = useState(esmalte);
   const [reel2, setReel2] = useState(fragancia);
   const [reel3, setReel3] = useState(protectorSolar);
@@ -38,22 +32,6 @@ const SlotMachine = () => {
   const [reel1Class, setReel1Class] = useState("");
   const [reel2Class, setReel2Class] = useState("");
   const [reel3Class, setReel3Class] = useState("");
-  // const [isChecked, setIsChecked] = useState(
-  //   new Array(symbols.length).fill(false));
-  // const [visibleSymbols, setVisibleSymbols] = useState(symbols);
-
-  // const handleOnChange = (index) => {
-  //   const updatedCheckedState = isChecked.map((item, idx) =>
-  //     idx === index ? !item : item
-  //   );
-  //   setIsChecked(updatedCheckedState);
-  //   const updatedVisibleSymbols = updatedCheckedState.reduce((acc, isChecked, idx) => {
-  //     if (isChecked) acc.push(symbols[idx]);
-  //     return acc;
-  //   }, []);
-  
-  //   setVisibleSymbols(updatedVisibleSymbols);
-  // };
 
   const spinAudio = new Audio(spinSound);
   const rollingAudio = new Audio(spinningSound);
@@ -138,7 +116,7 @@ const SlotMachine = () => {
   }, [spinning, reel1, reel2, reel3]);
 
   return (
-    <div>
+    <div className={theme}>
       <div className="slot-machine-container">
         {
           <div className={`winner-banner ${winner ? "winner-blink" : ""}`}>
@@ -161,7 +139,8 @@ const SlotMachine = () => {
         </div>
 
         <div className="slot-machine-bottom">
-          <div className="slot-machine-bottom-left">          
+          <div className="slot-machine-bottom-left">
+            <button className="toggle-theme-button" onClick={toggleTheme}>Cambiar tema</button>
           </div>
 
           <div className="slot-machine-bottom-center">
