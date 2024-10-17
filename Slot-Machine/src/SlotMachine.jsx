@@ -184,14 +184,14 @@ const SlotMachine = ({ toggleTheme, theme }) => {
         </div>
 
         <div className="slot-machine-bottom">
-          <div className="slot-machine-bottom-left">
+          {/* <div className="slot-machine-bottom-left">
             <button className="toggle-theme-button" onClick={restartCounter}>
               Reiniciar contador
             </button>
             <button className="toggle-theme-button" onClick={handleSound}>
             {isPlaying ? (<i className="fa-solid fa-volume-off"></i>) : (<i className="fa-solid fa-volume-high"></i>) }
             </button>
-          </div>
+          </div> */}
 
           <div className="slot-machine-bottom-center">
             <button
