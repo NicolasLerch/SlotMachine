@@ -112,6 +112,10 @@ const SlotMachine = ({ toggleTheme, theme }) => {
     }
   }, []);
 
+  const restartCounter = () => {
+    setPrizeCounter(0);
+  }
+
   useEffect(() => {
     if (!spinning && reel1 === reel2 && reel2 === reel3) {
       setWinner(true);
@@ -181,8 +185,8 @@ const SlotMachine = ({ toggleTheme, theme }) => {
 
         <div className="slot-machine-bottom">
           <div className="slot-machine-bottom-left">
-            <button className="toggle-theme-button" onClick={toggleTheme}>
-              Cambiar tema
+            <button className="toggle-theme-button" onClick={restartCounter}>
+              Reiniciar contador
             </button>
             <button className="toggle-theme-button" onClick={handleSound}>
             {isPlaying ? (<i className="fa-solid fa-volume-off"></i>) : (<i className="fa-solid fa-volume-high"></i>) }
