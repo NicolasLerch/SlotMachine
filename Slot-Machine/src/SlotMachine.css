@@ -388,4 +388,7 @@ body {
   .toggle-theme-button{
     align-self: center;
   }
+  .toggle-theme-button{
+    width: 120px;
+  }
 }
