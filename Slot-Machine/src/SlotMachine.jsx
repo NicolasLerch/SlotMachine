@@ -209,7 +209,9 @@ const SlotMachine = ({ toggleTheme, theme }) => {
               className="spin-button"
               onClick={spinReels}
               disabled={spinning}
-              style={{ pointerEvents: disabled ? "none" : "auto", cursor: disabled ? "not-allowed" : "pointer", backgroundColor: !disabled ? "rgba(199, 6, 6, 0.664)" : "rgba(199, 6, 6, 0.264)" }}
+              style={{ pointerEvents: disabled ? "none" : "auto", cursor: disabled ? "not-allowed" : "pointer", backgroundColor: !disabled ? "rgba(199, 6, 6, 0.664)" : "rgb(61, 10, 10, 0.8)",
+                borderColor: !disabled ? "rgb(252, 35, 35)" : "rgb(61, 10, 10, 0.8)",
+               }}
             >
               TIRAR
             </button>
