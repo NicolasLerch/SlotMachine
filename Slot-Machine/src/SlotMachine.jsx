@@ -15,10 +15,10 @@ import bgAudioFile2 from "./assets/sounds/bg-music2.mp3";
 
 const symbols = [
   fragancia,
-  protectorSolar,
-  esmalte,
-  colorCorrecting,
-  setEsponja,
+  // protectorSolar,
+  // esmalte,
+  // colorCorrecting,
+  // setEsponja,
 ];
 
 const SlotMachine = ({ toggleTheme, theme }) => {
@@ -231,6 +231,26 @@ const SlotMachine = ({ toggleTheme, theme }) => {
       setWinner(true);
       setVisible(true);
       setPrize(reel1Result);
+
+      switch (reel1) {
+        case esmalte:
+          setPrize("un esmalte");
+          break;
+        case fragancia:
+          setPrize("una fragancia");
+          break;
+        case protectorSolar:
+          setPrize("un protector solar");
+          break;
+        case colorCorrecting:
+          setPrize("un corrector");
+          break;
+        case setEsponja:
+          setPrize("un set de esponjas");
+          break;
+        default:
+          setPrize("");
+      }
 
       const newPrizeCounter = prizeCounter + 1;
       setPrizeCounter(newPrizeCounter);
