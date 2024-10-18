@@ -70,9 +70,9 @@ const SlotMachine = ({ toggleTheme, theme }) => {
     rollingAudio.play();
 
     // Asignar la clase "spin" a los reels inicialmente
-    setReel1Class("spin");
-    setReel2Class("spin");
-    setReel3Class("spin");
+    // setReel1Class("spin");
+    // setReel2Class("spin");
+    // setReel3Class("spin");
 
     // Iniciar el giro de los reels
     let spin1 = setInterval(() => {
@@ -81,7 +81,7 @@ const SlotMachine = ({ toggleTheme, theme }) => {
 
     setTimeout(() => {
       clearInterval(spin1);
-      setReel1Class("");
+      // setReel1Class("");
 
       let spin2 = setInterval(() => {
         setReel2(symbols[Math.floor(Math.random() * symbols.length)]);
@@ -89,7 +89,7 @@ const SlotMachine = ({ toggleTheme, theme }) => {
 
       setTimeout(() => {
         clearInterval(spin2);
-        setReel2Class("");
+        // setReel2Class("");
 
         let spin3 = setInterval(() => {
           setReel3(symbols[Math.floor(Math.random() * symbols.length)]);
@@ -98,7 +98,7 @@ const SlotMachine = ({ toggleTheme, theme }) => {
         setTimeout(() => {
           clearInterval(spin3);
           setSpinning(false);
-          setReel3Class("");
+          // setReel3Class("");
         }, 1000); // Detener el tercer reel después de 1 segundo
       }, 2000); // Detener el segundo reel después de 1 segundo
     }, 3000); // Detener el primer reel después de 2 segundos
