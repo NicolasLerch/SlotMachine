@@ -100,8 +100,8 @@ const SlotMachine = ({ toggleTheme, theme }) => {
           setSpinning(false);
           setReel3Class("");
         }, 1000); // Detener el tercer reel después de 1 segundo
-      }, 1000); // Detener el segundo reel después de 1 segundo
-    }, 2000); // Detener el primer reel después de 2 segundos
+      }, 2000); // Detener el segundo reel después de 1 segundo
+    }, 3000); // Detener el primer reel después de 2 segundos
   };
 
   // Al cargar la página, recuperar el contador de premios de localStorage
