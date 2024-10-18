@@ -92,7 +92,7 @@ const SlotMachine = ({ toggleTheme, theme }) => {
         setReel1Class("");
         setReel2Class("");
         setReel3Class("");
-      }, 2000);
+      }, 4000);
 
       setTimeout(() => {
         setDisabled(false);
