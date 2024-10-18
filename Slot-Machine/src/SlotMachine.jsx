@@ -62,106 +62,166 @@ const SlotMachine = ({ toggleTheme, theme }) => {
     setIsPlaying(!isPlaying);
   };
 
-  const stopReel = (setReel, setReelClass, delay) => {
-    return new Promise((resolve) => {
-      let currentSymbol = symbols[Math.floor(Math.random() * symbols.length)]; // Definir el símbolo inicial
-      const spin = setInterval(() => {
-        currentSymbol = symbols[Math.floor(Math.random() * symbols.length)];
-        setReel(currentSymbol);  // Cambiar símbolo en cada ciclo
-      }, 10);
+  // const stopReel = (setReel, setReelClass, delay) => {
+  //   return new Promise((resolve) => {
+  //     let currentSymbol = symbols[Math.floor(Math.random() * symbols.length)]; // Definir el símbolo inicial
+  //     const spin = setInterval(() => {
+  //       currentSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+  //       setReel(currentSymbol);  // Cambiar símbolo en cada ciclo
+  //     }, 10);
   
-      setTimeout(() => {
-        clearInterval(spin);  // Detener el intervalo
-        setReel(currentSymbol); // Asegurar que el símbolo actual se mantenga como el final
-        setReelClass(""); // Remover clase de giro
-        resolve();  // Resolver la promesa
-      }, delay);
-    });
-  };
+  //     setTimeout(() => {
+  //       clearInterval(spin);  // Detener el intervalo
+  //       setReel(currentSymbol); // Asegurar que el símbolo actual se mantenga como el final
+  //       setReelClass(""); // Remover clase de giro
+  //       resolve();  // Resolver la promesa
+  //     }, delay);
+  //   });
+  // };
 
+
+  // const spinReels = async () => {
+  //   setSpinning(true);
+  //   setWinner(false);
+  
+  //   spinAudio.play();
+  //   rollingAudio.play();
+  
+  //   const stopReel = (setReel, setReelClass, delay) => {
+  //     return new Promise((resolve) => {
+  //       const spin = setInterval(() => {
+  //         setReel(symbols[Math.floor(Math.random() * symbols.length)]);
+  //       }, 100);
+  
+  //       setTimeout(() => {
+  //         clearInterval(spin);
+  //         setReelClass("");
+  //         resolve();
+  //       }, delay);
+  //     });
+  //   };
+  
+  //   setReel1Class("spin");
+  //   await stopReel(setReel1, setReel1Class, 1000);
+  
+  //   setReel2Class("spin");
+  //   await stopReel(setReel2, setReel2Class, 1000);
+  
+  //   setReel3Class("spin");
+  //   await stopReel(setReel3, setReel3Class, 1000);
+  
+  //   setSpinning(false); 
+  // };
+  
+
+  // useEffect(() => {
+  //   const storedPrizeCounter = localStorage.getItem("prizeCounter");
+  //   if (storedPrizeCounter) {
+  //     setPrizeCounter(parseInt(storedPrizeCounter, 10));
+  //   }
+  // }, []);
+
+  // const restartCounter = () => {
+  //   setPrizeCounter(0);
+  // }
+
+  // useEffect(() => {
+  //   if (!spinning && reel1 === reel2 && reel2 === reel3) {
+  //     setWinner(true);
+  //     setVisible(true);
+  //     setPrize(reel1);
+  //     const newPrizeCounter = prizeCounter + 1;
+  //     setPrizeCounter(newPrizeCounter);
+
+  //     localStorage.setItem("prizeCounter", newPrizeCounter);
+
+  //     switch (reel1) {
+  //       case esmalte:
+  //         setPrize("un esmalte");
+  //         break;
+  //       case fragancia:
+  //         setPrize("una fragancia");
+  //         break;
+  //       case protectorSolar:
+  //         setPrize("un protector solar");
+  //         break;
+  //       case colorCorrecting:
+  //         setPrize("un corrector");
+  //         break;
+  //       case setEsponja:
+  //         setPrize("un set de esponjas");
+  //         break;
+  //       default:
+  //         setPrize("");
+  //     }
+
+  //     winnerAudio.play();
+  //   }
+  // }, [spinning, reel1, reel2, reel3]);
 
   const spinReels = async () => {
     setSpinning(true);
     setWinner(false);
-  
+
     spinAudio.play();
     rollingAudio.play();
-  
-    // Función para detener cada reel con promesas y setIntervals
-    // const stopReel = (setReel, setReelClass, delay) => {
-    //   return new Promise((resolve) => {
-    //     const spin = setInterval(() => {
-    //       setReel(symbols[Math.floor(Math.random() * symbols.length)]);
-    //     }, 100);
-  
-    //     setTimeout(() => {
-    //       clearInterval(spin);
-    //       setReelClass("");
-    //       resolve();
-    //     }, delay);
-    //   });
-    // };
-  
-    // Ejecutar la detención de los reels de manera secuencial
-    setReel1Class("spin");
-    await stopReel(setReel1, setReel1Class, 1000);
-  
-    setReel2Class("spin");
-    await stopReel(setReel2, setReel2Class, 1000);
-  
-    setReel3Class("spin");
-    await stopReel(setReel3, setReel3Class, 1000);
-  
-    setSpinning(false); // Finalizar el giro
+
+    const randomReel1 = getRandomSymbolSequence();
+    const randomReel2 = getRandomSymbolSequence();
+    const randomReel3 = getRandomSymbolSequence();
+    setReel1Class("spin")
+    setReel2Class("spin")
+    setReel3Class("spin")
+
+    // Función para realizar la animación de cada reel
+    await animateReel(setReel1, randomReel1, 1000, setReel1Class);
+    await animateReel(setReel2, randomReel2, 1200, setReel2Class);
+    await animateReel(setReel3, randomReel3, 1400, setReel3Class);
+
+    setSpinning(false);
+    checkWinner(randomReel1[0], randomReel2[0], randomReel3[0]);
   };
-  
 
-
-  // Al cargar la página, recuperar el contador de premios de localStorage
-  useEffect(() => {
-    const storedPrizeCounter = localStorage.getItem("prizeCounter");
-    if (storedPrizeCounter) {
-      setPrizeCounter(parseInt(storedPrizeCounter, 10));
+  const getRandomSymbolSequence = () => {
+    // Genera una secuencia de símbolos aleatorios para simular el giro
+    const sequence = [];
+    for (let i = 0; i < 20; i++) {
+      sequence.push(symbols[Math.floor(Math.random() * symbols.length)]);
     }
-  }, []);
+    return sequence;
+  };
 
-  const restartCounter = () => {
-    setPrizeCounter(0);
-  }
+  const animateReel = (setReel, symbolSequence, delay, setReelClass) => {
+    return new Promise((resolve) => {
+      let index = symbolSequence.length - 1;
+      const interval = setInterval(() => {
+        setReel(symbolSequence[index]);  // Mostrar el siguiente símbolo en la secuencia
+        index--;
+        if (index < 0) index = symbolSequence.length - 1;
+      }, 100);
 
-  useEffect(() => {
-    if (!spinning && reel1 === reel2 && reel2 === reel3) {
+      setTimeout(() => {
+        clearInterval(interval); // Detener el giro al finalizar el tiempo de animación
+        setReel(symbolSequence[0]);  // Fijar el símbolo final como el resultado
+        setReelClass("");
+        resolve();
+      }, delay);
+    });
+  };
+
+  const checkWinner = (reel1Result, reel2Result, reel3Result) => {
+    if (reel1Result === reel2Result && reel2Result === reel3Result) {
       setWinner(true);
       setVisible(true);
-      setPrize(reel1);
+      setPrize(reel1Result);
+
       const newPrizeCounter = prizeCounter + 1;
       setPrizeCounter(newPrizeCounter);
-
       localStorage.setItem("prizeCounter", newPrizeCounter);
 
-      switch (reel1) {
-        case esmalte:
-          setPrize("un esmalte");
-          break;
-        case fragancia:
-          setPrize("una fragancia");
-          break;
-        case protectorSolar:
-          setPrize("un protector solar");
-          break;
-        case colorCorrecting:
-          setPrize("un corrector");
-          break;
-        case setEsponja:
-          setPrize("un set de esponjas");
-          break;
-        default:
-          setPrize("");
-      }
-
-      winnerAudio.play();
+      winnerAudio.current.play();
     }
-  }, [spinning, reel1, reel2, reel3]);
+  };
 
   return (
     <div className={theme}>
