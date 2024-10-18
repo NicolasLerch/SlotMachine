@@ -62,46 +62,7 @@ const SlotMachine = ({ toggleTheme, theme }) => {
     setIsPlaying(!isPlaying);
   };
 
-  // const spinReels = () => {
-  //   setSpinning(true);
-  //   setWinner(false);
 
-  //   spinAudio.play();
-  //   rollingAudio.play();
-
-  //   setReel1Class("spin");
-  //   setReel2Class("spin");
-  //   setReel3Class("spin");
-
-  //   let spin1 = setInterval(() => {
-  //     setReel1(symbols[Math.floor(Math.random() * symbols.length)]);
-  //   }, 1000);
-
-  //   setTimeout(() => {
-  //     clearInterval(spin1);
-  //     setReel1Class("");
-
-  //     let spin2 = setInterval(() => {
-  //       setReel2(symbols[Math.floor(Math.random() * symbols.length)]);
-  //     }, 1000);
-
-
-  //     setTimeout(() => {
-  //       clearInterval(spin2);
-  //       setReel2Class("");
-
-  //       let spin3 = setInterval(() => {
-  //         setReel3(symbols[Math.floor(Math.random() * symbols.length)]);
-  //       }, 1000);
-
-  //       setTimeout(() => {
-  //         clearInterval(spin3);
-  //         setSpinning(false);
-  //         setReel3Class("");
-  //       }, 1000); 
-  //     }, 1500); 
-  //   }, 2000); 
-  // };
 
   const spinReels = async () => {
     setSpinning(true);
@@ -111,16 +72,33 @@ const SlotMachine = ({ toggleTheme, theme }) => {
     rollingAudio.play();
   
     // Función para detener cada reel con promesas y setIntervals
+    // const stopReel = (setReel, setReelClass, delay) => {
+    //   return new Promise((resolve) => {
+    //     const spin = setInterval(() => {
+    //       setReel(symbols[Math.floor(Math.random() * symbols.length)]);
+    //     }, 100);
+  
+    //     setTimeout(() => {
+    //       clearInterval(spin);
+    //       setReelClass("");
+    //       resolve();
+    //     }, delay);
+    //   });
+    // };
+
     const stopReel = (setReel, setReelClass, delay) => {
       return new Promise((resolve) => {
+        let currentSymbol = symbols[Math.floor(Math.random() * symbols.length)]; // Definir el símbolo inicial
         const spin = setInterval(() => {
-          setReel(symbols[Math.floor(Math.random() * symbols.length)]);
+          currentSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+          setReel(currentSymbol);  // Cambiar símbolo en cada ciclo
         }, 100);
-  
+    
         setTimeout(() => {
-          clearInterval(spin);
-          setReelClass("");
-          resolve();
+          clearInterval(spin);  // Detener el intervalo
+          setReel(currentSymbol); // Asegurar que el símbolo actual se mantenga como el final
+          setReelClass(""); // Remover clase de giro
+          resolve();  // Resolver la promesa
         }, delay);
       });
     };
