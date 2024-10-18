@@ -14,11 +14,11 @@ import bgAudioFile from "./assets/sounds/background-music.mp3";
 import bgAudioFile2 from "./assets/sounds/bg-music2.mp3";
 
 const symbols = [
-  fragancia,
+  // fragancia,
   protectorSolar,
-  esmalte,
-  colorCorrecting,
-  setEsponja,
+  // esmalte,
+  // colorCorrecting,
+  // setEsponja,
 ];
 
 const SlotMachine = ({ toggleTheme, theme }) => {
@@ -63,103 +63,6 @@ const SlotMachine = ({ toggleTheme, theme }) => {
     setIsPlaying(!isPlaying);
   };
 
-  // const stopReel = (setReel, setReelClass, delay) => {
-  //   return new Promise((resolve) => {
-  //     let currentSymbol = symbols[Math.floor(Math.random() * symbols.length)]; // Definir el símbolo inicial
-  //     const spin = setInterval(() => {
-  //       currentSymbol = symbols[Math.floor(Math.random() * symbols.length)];
-  //       setReel(currentSymbol);  // Cambiar símbolo en cada ciclo
-  //     }, 10);
-  
-  //     setTimeout(() => {
-  //       clearInterval(spin);  // Detener el intervalo
-  //       setReel(currentSymbol); // Asegurar que el símbolo actual se mantenga como el final
-  //       setReelClass(""); // Remover clase de giro
-  //       resolve();  // Resolver la promesa
-  //     }, delay);
-  //   });
-  // };
-
-
-  // const spinReels = async () => {
-  //   setSpinning(true);
-  //   setWinner(false);
-  
-  //   spinAudio.play();
-  //   rollingAudio.play();
-  
-  //   const stopReel = (setReel, setReelClass, delay) => {
-  //     return new Promise((resolve) => {
-  //       const spin = setInterval(() => {
-  //         setReel(symbols[Math.floor(Math.random() * symbols.length)]);
-  //       }, 100);
-  
-  //       setTimeout(() => {
-  //         clearInterval(spin);
-  //         setReelClass("");
-  //         resolve();
-  //       }, delay);
-  //     });
-  //   };
-  
-  //   setReel1Class("spin");
-  //   await stopReel(setReel1, setReel1Class, 1000);
-  
-  //   setReel2Class("spin");
-  //   await stopReel(setReel2, setReel2Class, 1000);
-  
-  //   setReel3Class("spin");
-  //   await stopReel(setReel3, setReel3Class, 1000);
-  
-  //   setSpinning(false); 
-  // };
-  
-
-  // useEffect(() => {
-  //   const storedPrizeCounter = localStorage.getItem("prizeCounter");
-  //   if (storedPrizeCounter) {
-  //     setPrizeCounter(parseInt(storedPrizeCounter, 10));
-  //   }
-  // }, []);
-
-  // const restartCounter = () => {
-  //   setPrizeCounter(0);
-  // }
-
-  // useEffect(() => {
-  //   if (!spinning && reel1 === reel2 && reel2 === reel3) {
-  //     setWinner(true);
-  //     setVisible(true);
-  //     setPrize(reel1);
-  //     const newPrizeCounter = prizeCounter + 1;
-  //     setPrizeCounter(newPrizeCounter);
-
-  //     localStorage.setItem("prizeCounter", newPrizeCounter);
-
-  //     switch (reel1) {
-  //       case esmalte:
-  //         setPrize("un esmalte");
-  //         break;
-  //       case fragancia:
-  //         setPrize("una fragancia");
-  //         break;
-  //       case protectorSolar:
-  //         setPrize("un protector solar");
-  //         break;
-  //       case colorCorrecting:
-  //         setPrize("un corrector");
-  //         break;
-  //       case setEsponja:
-  //         setPrize("un set de esponjas");
-  //         break;
-  //       default:
-  //         setPrize("");
-  //     }
-
-  //     winnerAudio.play();
-  //   }
-  // }, [spinning, reel1, reel2, reel3]);
-
     const spinReels = async () => {
       setDisabled(true);
       setSpinning(true);
@@ -179,8 +82,8 @@ const SlotMachine = ({ toggleTheme, theme }) => {
 
       // Función para realizar la animación de cada reel
       await animateReel(setReel1, randomReel1, 1000);
-      await animateReel(setReel2, randomReel2, 1200);
-      await animateReel(setReel3, randomReel3, 1400);
+      await animateReel(setReel2, randomReel2, 1000);
+      await animateReel(setReel3, randomReel3, 1000);
 
       setSpinning(false);
       checkWinner(randomReel1[0], randomReel2[0], randomReel3[0]);
@@ -231,6 +134,7 @@ const SlotMachine = ({ toggleTheme, theme }) => {
       setWinner(true);
       setVisible(true);
       setPrize(reel1Result);
+      setReel1(reel1Result);
 
       switch (reel1) {
         case esmalte:
