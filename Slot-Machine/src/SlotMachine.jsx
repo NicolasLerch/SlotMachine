@@ -99,49 +99,45 @@ const SlotMachine = ({ toggleTheme, theme }) => {
   //         setSpinning(false);
   //         setReel3Class("");
   //       }, 1000); 
-  //     }, 2000); 
-  //   }, 3000); 
+  //     }, 1500); 
+  //   }, 2000); 
   // };
 
-  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-const spinReels = async () => {
-  setSpinning(true);
-  setWinner(false);
-
-    setReel1Class("spin");
-    setReel2Class("spin");
-    setReel3Class("spin");
-
-  spinAudio.play();
-  rollingAudio.play();
-
-  // Iniciar los giros de los reels simultáneamente
-  const spin1 = setInterval(() => {
-    setReel1(symbols[Math.floor(Math.random() * symbols.length)]);
-  }, 100);
-  const spin2 = setInterval(() => {
-    setReel2(symbols[Math.floor(Math.random() * symbols.length)]);
-  }, 100);
-  const spin3 = setInterval(() => {
-    setReel3(symbols[Math.floor(Math.random() * symbols.length)]);
-  }, 100);
-
-  // Detener los reels de manera progresiva
-  await delay(1000);  // Espera 1 segundo para detener el primer reel
-  clearInterval(spin1);
-  setReel1Class("");
-
-  await delay(1000);  // Espera otro segundo para detener el segundo reel
-  clearInterval(spin2);
-  setReel2Class("");
-
-  await delay(1000);  // Espera otro segundo para detener el tercer reel
-  clearInterval(spin3);
-  setReel3Class("");
+  const spinReels = async () => {
+    setSpinning(true);
+    setWinner(false);
   
-  setSpinning(false); 
-};
+    spinAudio.play();
+    rollingAudio.play();
+  
+    // Función para detener cada reel con promesas y setIntervals
+    const stopReel = (setReel, setReelClass, delay) => {
+      return new Promise((resolve) => {
+        const spin = setInterval(() => {
+          setReel(symbols[Math.floor(Math.random() * symbols.length)]);
+        }, 100);
+  
+        setTimeout(() => {
+          clearInterval(spin);
+          setReelClass("");
+          resolve();
+        }, delay);
+      });
+    };
+  
+    // Ejecutar la detención de los reels de manera secuencial
+    setReel1Class("spin");
+    await stopReel(setReel1, setReel1Class, 1000);
+  
+    setReel2Class("spin");
+    await stopReel(setReel2, setReel2Class, 1000);
+  
+    setReel3Class("spin");
+    await stopReel(setReel3, setReel3Class, 1000);
+  
+    setSpinning(false); // Finalizar el giro
+  };
+  
 
 
   // Al cargar la página, recuperar el contador de premios de localStorage
