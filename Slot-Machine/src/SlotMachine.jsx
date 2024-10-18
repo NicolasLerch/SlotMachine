@@ -15,10 +15,10 @@ import bgAudioFile2 from "./assets/sounds/bg-music2.mp3";
 
 const symbols = [
   fragancia,
-  // protectorSolar,
-  // esmalte,
-  // colorCorrecting,
-  // setEsponja,
+  protectorSolar,
+  esmalte,
+  colorCorrecting,
+  setEsponja,
 ];
 
 const SlotMachine = ({ toggleTheme, theme }) => {
