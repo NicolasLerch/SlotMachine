@@ -77,7 +77,7 @@ const SlotMachine = ({ toggleTheme, theme }) => {
     // Iniciar el giro de los reels
     let spin1 = setInterval(() => {
       setReel1(symbols[Math.floor(Math.random() * symbols.length)]);
-    }, 100);
+    }, 5);
 
     setTimeout(() => {
       clearInterval(spin1);
@@ -85,7 +85,7 @@ const SlotMachine = ({ toggleTheme, theme }) => {
 
       let spin2 = setInterval(() => {
         setReel2(symbols[Math.floor(Math.random() * symbols.length)]);
-      }, 100);
+      }, 5);
 
       setTimeout(() => {
         clearInterval(spin2);
@@ -93,7 +93,7 @@ const SlotMachine = ({ toggleTheme, theme }) => {
 
         let spin3 = setInterval(() => {
           setReel3(symbols[Math.floor(Math.random() * symbols.length)]);
-        }, 100);
+        }, 5);
 
         setTimeout(() => {
           clearInterval(spin3);
