@@ -141,7 +141,7 @@ body {
   margin: auto;
   background-color: var(--slot-machine-color);
   border-radius: 10px;
-  padding: 40px;
+  padding: 40px 40px 0px 40px;
   width: 100%;
   animation: lightRotate 1s linear infinite;
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
@@ -328,17 +328,19 @@ body {
 }
 
 .toggle-theme-button {
-  display: flex;
+  position: relative;
+  left: 25px;
+  bottom: 5px;
+  align-self: flex-end;
   color:var(--text-color);
   justify-content: center;
-  height: 50px;
-  width: 150px;
-  font-size: 1.2rem;
+  height: 40px;
+  width: 40px;
+  font-size: 1rem;
   padding: 10px;
   border-radius: 10px;
   align-items: center;
-  background-color: var(--change-theme-button-bg-color);
-  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.5);
+  background-color: transparent;
   border: none;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
@@ -348,10 +350,6 @@ body {
   .toggle-theme-button:hover {
     transform: scale(1.1);
   }
-}
-
-.toggle-theme-button:last-child{
-  margin-top: 10px;
 }
 
 
@@ -391,11 +389,16 @@ body {
       width: 100%;
     }
   }
+
   .toggle-theme-button{
-    align-self: center;
-  }
-  .toggle-theme-button{
-    width: 120px;
+    position: relative;
+    left: 30px;
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+    border: none;
+    background-color: var(--slot-machine-color);
+    box-shadow: none;
   }
 
   .winner-banner {
@@ -444,7 +447,7 @@ body {
   .toggle-theme-button{
     align-self: center;
   }
-  .toggle-theme-button{
+   .toggle-theme-button{
     width: 110px;
   }
 

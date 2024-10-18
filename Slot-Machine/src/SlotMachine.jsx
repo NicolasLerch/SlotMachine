@@ -188,9 +188,6 @@ const SlotMachine = ({ toggleTheme, theme }) => {
             <button className="toggle-theme-button" onClick={restartCounter}>
               Reiniciar contador
             </button>
-            <button className="toggle-theme-button" onClick={handleSound}>
-            {isPlaying ? (<i className="fa-solid fa-volume-off"></i>) : (<i className="fa-solid fa-volume-high"></i>) }
-            </button>
           </div> */}
 
           <div className="slot-machine-bottom-center">
@@ -209,7 +206,12 @@ const SlotMachine = ({ toggleTheme, theme }) => {
             </div>
           </div>
         </div>
+        <button className="toggle-theme-button" onClick={handleSound}>
+            {isPlaying ? (<i className="fa-solid fa-volume-off"></i>) : (<i className="fa-solid fa-volume-high"></i>) }
+            </button>
+        
       </div>
+      
 
       {winner && visible ? (
         <PrizeAlert prize={prize} img={reel1} setVisible={setVisible} />
