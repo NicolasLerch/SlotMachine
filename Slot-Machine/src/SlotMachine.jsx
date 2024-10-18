@@ -201,9 +201,10 @@ const SlotMachine = ({ toggleTheme, theme }) => {
       }, 100);
 
       setTimeout(() => {
+        setReelClass("");
         clearInterval(interval); // Detener el giro al finalizar el tiempo de animación
         setReel(symbolSequence[0]);  // Fijar el símbolo final como el resultado
-        setReelClass("");
+        
         resolve();
       }, delay);
     });
