@@ -62,6 +62,22 @@ const SlotMachine = ({ toggleTheme, theme }) => {
     setIsPlaying(!isPlaying);
   };
 
+  const stopReel = (setReel, setReelClass, delay) => {
+    return new Promise((resolve) => {
+      let currentSymbol = symbols[Math.floor(Math.random() * symbols.length)]; // Definir el símbolo inicial
+      const spin = setInterval(() => {
+        currentSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+        setReel(currentSymbol);  // Cambiar símbolo en cada ciclo
+      }, 10);
+  
+      setTimeout(() => {
+        clearInterval(spin);  // Detener el intervalo
+        setReel(currentSymbol); // Asegurar que el símbolo actual se mantenga como el final
+        setReelClass(""); // Remover clase de giro
+        resolve();  // Resolver la promesa
+      }, delay);
+    });
+  };
 
 
   const spinReels = async () => {
@@ -85,23 +101,6 @@ const SlotMachine = ({ toggleTheme, theme }) => {
     //     }, delay);
     //   });
     // };
-
-    const stopReel = (setReel, setReelClass, delay) => {
-      return new Promise((resolve) => {
-        let currentSymbol = symbols[Math.floor(Math.random() * symbols.length)]; // Definir el símbolo inicial
-        const spin = setInterval(() => {
-          currentSymbol = symbols[Math.floor(Math.random() * symbols.length)];
-          setReel(currentSymbol);  // Cambiar símbolo en cada ciclo
-        }, 100);
-    
-        setTimeout(() => {
-          clearInterval(spin);  // Detener el intervalo
-          setReel(currentSymbol); // Asegurar que el símbolo actual se mantenga como el final
-          setReelClass(""); // Remover clase de giro
-          resolve();  // Resolver la promesa
-        }, delay);
-      });
-    };
   
     // Ejecutar la detención de los reels de manera secuencial
     setReel1Class("spin");
