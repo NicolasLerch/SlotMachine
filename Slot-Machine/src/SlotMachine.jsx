@@ -62,47 +62,87 @@ const SlotMachine = ({ toggleTheme, theme }) => {
     setIsPlaying(!isPlaying);
   };
 
-  const spinReels = () => {
-    setSpinning(true);
-    setWinner(false);
+  // const spinReels = () => {
+  //   setSpinning(true);
+  //   setWinner(false);
 
-    spinAudio.play();
-    rollingAudio.play();
+  //   spinAudio.play();
+  //   rollingAudio.play();
 
-    // Asignar la clase "spin" a los reels inicialmente
-    // setReel1Class("spin");
-    // setReel2Class("spin");
-    // setReel3Class("spin");
+  //   setReel1Class("spin");
+  //   setReel2Class("spin");
+  //   setReel3Class("spin");
 
-    // Iniciar el giro de los reels
-    let spin1 = setInterval(() => {
-      setReel1(symbols[Math.floor(Math.random() * symbols.length)]);
-    }, 5);
+  //   let spin1 = setInterval(() => {
+  //     setReel1(symbols[Math.floor(Math.random() * symbols.length)]);
+  //   }, 1000);
 
-    setTimeout(() => {
-      clearInterval(spin1);
-      // setReel1Class("");
+  //   setTimeout(() => {
+  //     clearInterval(spin1);
+  //     setReel1Class("");
 
-      let spin2 = setInterval(() => {
-        setReel2(symbols[Math.floor(Math.random() * symbols.length)]);
-      }, 5);
+  //     let spin2 = setInterval(() => {
+  //       setReel2(symbols[Math.floor(Math.random() * symbols.length)]);
+  //     }, 1000);
 
-      setTimeout(() => {
-        clearInterval(spin2);
-        // setReel2Class("");
 
-        let spin3 = setInterval(() => {
-          setReel3(symbols[Math.floor(Math.random() * symbols.length)]);
-        }, 5);
+  //     setTimeout(() => {
+  //       clearInterval(spin2);
+  //       setReel2Class("");
 
-        setTimeout(() => {
-          clearInterval(spin3);
-          setSpinning(false);
-          // setReel3Class("");
-        }, 1000); // Detener el tercer reel después de 1 segundo
-      }, 2000); // Detener el segundo reel después de 1 segundo
-    }, 3000); // Detener el primer reel después de 2 segundos
-  };
+  //       let spin3 = setInterval(() => {
+  //         setReel3(symbols[Math.floor(Math.random() * symbols.length)]);
+  //       }, 1000);
+
+  //       setTimeout(() => {
+  //         clearInterval(spin3);
+  //         setSpinning(false);
+  //         setReel3Class("");
+  //       }, 1000); 
+  //     }, 2000); 
+  //   }, 3000); 
+  // };
+
+  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+const spinReels = async () => {
+  setSpinning(true);
+  setWinner(false);
+
+    setReel1Class("spin");
+    setReel2Class("spin");
+    setReel3Class("spin");
+
+  spinAudio.play();
+  rollingAudio.play();
+
+  // Iniciar los giros de los reels simultáneamente
+  const spin1 = setInterval(() => {
+    setReel1(symbols[Math.floor(Math.random() * symbols.length)]);
+  }, 100);
+  const spin2 = setInterval(() => {
+    setReel2(symbols[Math.floor(Math.random() * symbols.length)]);
+  }, 100);
+  const spin3 = setInterval(() => {
+    setReel3(symbols[Math.floor(Math.random() * symbols.length)]);
+  }, 100);
+
+  // Detener los reels de manera progresiva
+  await delay(1000);  // Espera 1 segundo para detener el primer reel
+  clearInterval(spin1);
+  setReel1Class("");
+
+  await delay(1000);  // Espera otro segundo para detener el segundo reel
+  clearInterval(spin2);
+  setReel2Class("");
+
+  await delay(1000);  // Espera otro segundo para detener el tercer reel
+  clearInterval(spin3);
+  setReel3Class("");
+  
+  setSpinning(false); 
+};
+
 
   // Al cargar la página, recuperar el contador de premios de localStorage
   useEffect(() => {
