@@ -96,7 +96,7 @@ const SlotMachine = ({ toggleTheme, theme }) => {
 
       setTimeout(() => {
         setDisabled(false);
-      },4000)
+      },2500)
       
     };
 
