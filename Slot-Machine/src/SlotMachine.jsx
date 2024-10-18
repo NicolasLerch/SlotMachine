@@ -14,11 +14,11 @@ import bgAudioFile from "./assets/sounds/background-music.mp3";
 import bgAudioFile2 from "./assets/sounds/bg-music2.mp3";
 
 const symbols = [
-  // fragancia,
+  fragancia,
   protectorSolar,
-  // esmalte,
-  // colorCorrecting,
-  // setEsponja,
+  esmalte,
+  colorCorrecting,
+  setEsponja,
 ];
 
 const SlotMachine = ({ toggleTheme, theme }) => {
