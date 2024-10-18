@@ -169,18 +169,27 @@ const SlotMachine = ({ toggleTheme, theme }) => {
     const randomReel1 = getRandomSymbolSequence();
     const randomReel2 = getRandomSymbolSequence();
     const randomReel3 = getRandomSymbolSequence();
+
     setReel1Class("spin")
     setReel2Class("spin")
     setReel3Class("spin")
 
     // Función para realizar la animación de cada reel
-    await animateReel(setReel1, randomReel1, 1000, setReel1Class);
-    await animateReel(setReel2, randomReel2, 1200, setReel2Class);
-    await animateReel(setReel3, randomReel3, 1400, setReel3Class);
+    await animateReel(setReel1, randomReel1, 1000);
+    await animateReel(setReel2, randomReel2, 1200);
+    await animateReel(setReel3, randomReel3, 1400);
 
     setSpinning(false);
     checkWinner(randomReel1[0], randomReel2[0], randomReel3[0]);
+
+    setTimeout(() => {
+      setReel1Class("");
+      setReel2Class("");
+      setReel3Class("");
+    }, 500); 
   };
+
+  
 
   const getRandomSymbolSequence = () => {
     // Genera una secuencia de símbolos aleatorios para simular el giro
@@ -191,7 +200,7 @@ const SlotMachine = ({ toggleTheme, theme }) => {
     return sequence;
   };
 
-  const animateReel = (setReel, symbolSequence, delay, setReelClass) => {
+  const animateReel = (setReel, symbolSequence, delay) => {
     return new Promise((resolve) => {
       let index = symbolSequence.length - 1;
       const interval = setInterval(() => {
@@ -201,7 +210,6 @@ const SlotMachine = ({ toggleTheme, theme }) => {
       }, 100);
 
       setTimeout(() => {
-        setReelClass("");
         clearInterval(interval); // Detener el giro al finalizar el tiempo de animación
         setReel(symbolSequence[0]);  // Fijar el símbolo final como el resultado
         
