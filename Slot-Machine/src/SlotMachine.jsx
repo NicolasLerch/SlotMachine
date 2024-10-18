@@ -186,7 +186,7 @@ const SlotMachine = ({ toggleTheme, theme }) => {
       setReel1Class("");
       setReel2Class("");
       setReel3Class("");
-    }, 500); 
+    }, 1000);
   };
 
   
