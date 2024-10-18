@@ -96,7 +96,7 @@ const SlotMachine = ({ toggleTheme, theme }) => {
 
       setTimeout(() => {
         setDisabled(false);
-      },2000)
+      },4000)
       
     };
 
@@ -105,7 +105,7 @@ const SlotMachine = ({ toggleTheme, theme }) => {
   const getRandomSymbolSequence = () => {
     // Genera una secuencia de símbolos aleatorios para simular el giro
     const sequence = [];
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 10; i++) {
       sequence.push(symbols[Math.floor(Math.random() * symbols.length)]);
     }
     return sequence;
