@@ -35,6 +35,7 @@ const SlotMachine = ({ toggleTheme, theme }) => {
   const [prizeCounter, setPrizeCounter] = useState(7);
   const [isPlaying, setIsPlaying] = useState(false);
   const bgAudio = useRef(new Audio(bgAudioFile));
+  const [disabled, setDisabled] = useState(false);
 
   const spinAudio = new Audio(spinSound);
   const rollingAudio = new Audio(spinningSound);
@@ -159,36 +160,42 @@ const SlotMachine = ({ toggleTheme, theme }) => {
   //   }
   // }, [spinning, reel1, reel2, reel3]);
 
-  const spinReels = async () => {
-    setSpinning(true);
-    setWinner(false);
+    const spinReels = async () => {
+      setDisabled(true);
+      setSpinning(true);
+      setWinner(false);
+      
 
-    spinAudio.play();
-    rollingAudio.play();
+      spinAudio.play();
+      rollingAudio.play();
 
-    const randomReel1 = getRandomSymbolSequence();
-    const randomReel2 = getRandomSymbolSequence();
-    const randomReel3 = getRandomSymbolSequence();
+      const randomReel1 = getRandomSymbolSequence();
+      const randomReel2 = getRandomSymbolSequence();
+      const randomReel3 = getRandomSymbolSequence();
 
-    setReel1Class("spin")
-    setReel2Class("spin")
-    setReel3Class("spin")
+      setReel1Class("spin")
+      setReel2Class("spin")
+      setReel3Class("spin")
 
-    // Función para realizar la animación de cada reel
-    await animateReel(setReel1, randomReel1, 1000);
-    await animateReel(setReel2, randomReel2, 1200);
-    await animateReel(setReel3, randomReel3, 1400);
+      // Función para realizar la animación de cada reel
+      await animateReel(setReel1, randomReel1, 1000);
+      await animateReel(setReel2, randomReel2, 1200);
+      await animateReel(setReel3, randomReel3, 1400);
 
-    setSpinning(false);
-    checkWinner(randomReel1[0], randomReel2[0], randomReel3[0]);
+      setSpinning(false);
+      checkWinner(randomReel1[0], randomReel2[0], randomReel3[0]);
 
-    setTimeout(() => {
-      setReel1Class("");
-      setReel2Class("");
-      setReel3Class("");
-    }, 2000);
-    
-  };
+      setTimeout(() => {
+        setReel1Class("");
+        setReel2Class("");
+        setReel3Class("");
+      }, 2000);
+
+      setTimeout(() => {
+        setDisabled(false);
+      },2000)
+      
+    };
 
   
 
@@ -229,7 +236,7 @@ const SlotMachine = ({ toggleTheme, theme }) => {
       setPrizeCounter(newPrizeCounter);
       localStorage.setItem("prizeCounter", newPrizeCounter);
 
-      winnerAudio.current.play();
+      winnerAudio.play();
     }
   };
 
@@ -278,6 +285,7 @@ const SlotMachine = ({ toggleTheme, theme }) => {
               className="spin-button"
               onClick={spinReels}
               disabled={spinning}
+              style={{ pointerEvents: disabled ? "none" : "auto", cursor: disabled ? "not-allowed" : "pointer", backgroundColor: !disabled ? "rgba(199, 6, 6, 0.664)" : "rgba(199, 6, 6, 0.264)" }}
             >
               TIRAR
             </button>
